@@ -1,0 +1,254 @@
+{
+  "coffees": [
+    {
+      "name": "Classic Espresso",
+      "shortDescription": "A rich and intense shot of pure coffee",
+      "difficulty": "easy",
+      "preparationTimeMinutes": 2,
+      "glassType": "cup",
+      "coffeeType": ["hot", "short"],
+      "imageName": "espresso",
+      "ingredients": [
+        {
+          "name": "Espresso ground coffee",
+          "measure": 18,
+          "units": "g"
+        },
+        {
+          "name": "Hot water",
+          "measure": 36,
+          "units": "ml"
+        }
+      ]
+    },
+    {
+      "name": "Cappuccino",
+      "shortDescription": "Espresso with steamed milk and foam",
+      "difficulty": "medium",
+      "preparationTimeMinutes": 5,
+      "glassType": "cup",
+      "coffeeType": ["hot"],
+      "imageName": "cappuccino",
+      "ingredients": [
+        {
+          "name": "Espresso ground coffee",
+          "measure": 18,
+          "units": "g"
+        },
+        {
+          "name": "Whole milk",
+          "measure": 120,
+          "units": "ml"
+        },
+        {
+          "name": "White sugar",
+          "measure": 1,
+          "units": "tsp"
+        }
+      ]
+    },
+    {
+      "name": "Cold Brew",
+      "shortDescription": "Smooth and refreshing cold-extracted coffee",
+      "difficulty": "easy",
+      "preparationTimeMinutes": 5,
+      "glassType": "glass",
+      "coffeeType": ["cold", "long"],
+      "imageName": "cold_brew",
+      "ingredients": [
+        {
+          "name": "Filter ground coffee",
+          "measure": 80,
+          "units": "g"
+        },
+        {
+          "name": "Cold water",
+          "measure": 500,
+          "units": "ml"
+        },
+        {
+          "name": "Ice cubes",
+          "measure": 8,
+          "units": "pieces"
+        }
+      ]
+    },
+    {
+      "name": "Latte",
+      "shortDescription": "Creamy espresso with lots of steamed milk",
+      "difficulty": "medium",
+      "preparationTimeMinutes": 6,
+      "glassType": "mug",
+      "coffeeType": ["hot", "long"],
+      "imageName": "latte",
+      "ingredients": [
+        {
+          "name": "Espresso ground coffee",
+          "measure": 18,
+          "units": "g"
+        },
+        {
+          "name": "Whole milk",
+          "measure": 200,
+          "units": "ml"
+        },
+        {
+          "name": "Vanilla syrup",
+          "measure": 1,
+          "units": "pump"
+        }
+      ]
+    },
+    {
+      "name": "Americano",
+      "shortDescription": "Espresso diluted with hot water",
+      "difficulty": "easy",
+      "preparationTimeMinutes": 3,
+      "glassType": "mug",
+      "coffeeType": ["hot", "long"],
+      "imageName": "americano",
+      "ingredients": [
+        {
+          "name": "Espresso ground coffee",
+          "measure": 18,
+          "units": "g"
+        },
+        {
+          "name": "Hot water",
+          "measure": 150,
+          "units": "ml"
+        }
+      ]
+    },
+    {
+      "name": "Iced Latte",
+      "shortDescription": "Refreshing iced version of the classic latte",
+      "difficulty": "medium",
+      "preparationTimeMinutes": 4,
+      "glassType": "glass",
+      "coffeeType": ["cold", "iced", "long"],
+      "imageName": "iced_latte",
+      "ingredients": [
+        {
+          "name": "Espresso ground coffee",
+          "measure": 18,
+          "units": "g"
+        },
+        {
+          "name": "Cold milk",
+          "measure": 180,
+          "units": "ml"
+        },
+        {
+          "name": "Ice cubes",
+          "measure": 6,
+          "units": "pieces"
+        },
+        {
+          "name": "Caramel syrup",
+          "measure": 1,
+          "units": "pump"
+        }
+      ]
+    },
+    {
+      "name": "French Press",
+      "shortDescription": "Full-bodied coffee brewed with a plunger",
+      "difficulty": "easy",
+      "preparationTimeMinutes": 8,
+      "glassType": "frenchPress",
+      "coffeeType": ["hot", "filtered", "long"],
+      "imageName": "french_press",
+      "ingredients": [
+        {
+          "name": "Filter ground coffee",
+          "measure": 30,
+          "units": "g"
+        },
+        {
+          "name": "Hot water",
+          "measure": 500,
+          "units": "ml"
+        }
+      ]
+    },
+    {
+      "name": "Pour Over V60",
+      "shortDescription": "Precision brewing method for clean, bright flavors",
+      "difficulty": "hard",
+      "preparationTimeMinutes": 12,
+      "glassType": "v60",
+      "coffeeType": ["hot", "filtered"],
+      "imageName": "v60",
+      "ingredients": [
+        {
+          "name": "Filter ground coffee",
+          "measure": 22,
+          "units": "g"
+        },
+        {
+          "name": "Hot water",
+          "measure": 350,
+          "units": "ml"
+        }
+      ]
+    },
+    {
+      "name": "Mocha",
+      "shortDescription": "Decadent chocolate espresso drink",
+      "difficulty": "hard",
+      "preparationTimeMinutes": 7,
+      "glassType": "mug",
+      "coffeeType": ["hot"],
+      "imageName": "mocha",
+      "ingredients": [
+        {
+          "name": "Espresso ground coffee",
+          "measure": 18,
+          "units": "g"
+        },
+        {
+          "name": "Whole milk",
+          "measure": 150,
+          "units": "ml"
+        },
+        {
+          "name": "Chocolate powder",
+          "measure": 2,
+          "units": "tsp"
+        },
+        {
+          "name": "Whipped cream",
+          "measure": 30,
+          "units": "ml"
+        },
+        {
+          "name": "Brown sugar",
+          "measure": 1,
+          "units": "tsp"
+        }
+      ]
+    },
+    {
+      "name": "Chemex Coffee",
+      "shortDescription": "Clean and elegant pour-over brewing method",
+      "difficulty": "hard",
+      "preparationTimeMinutes": 15,
+      "glassType": "chemex",
+      "coffeeType": ["hot", "filtered", "long"],
+      "imageName": "chemex",
+      "ingredients": [
+        {
+          "name": "Filter ground coffee",
+          "measure": 42,
+          "units": "g"
+        },
+        {
+          "name": "Hot water",
+          "measure": 700,
+          "units": "ml"
+        }
+      ]
+    }
+  ]
+}
