@@ -9,23 +9,23 @@ extension App.Coffee {
             self.persistence = persistence
         }
 
-        func getAllCoffees() async throws -> [App.Coffee.Entities.Model] {
+        func getAllCoffees() async throws -> [App.Coffee.Entities.Coffee] {
             try persistence.fetchAll()
         }
 
-        func getCoffee(by id: UUID) async throws -> App.Coffee.Entities.Model? {
+        func getCoffee(by id: UUID) async throws -> App.Coffee.Entities.Coffee? {
             try persistence.fetchByID(id)
         }
 
-        func saveCoffee(_ coffee: App.Coffee.Entities.Model) async throws {
+        func saveCoffee(_ coffee: App.Coffee.Entities.Coffee) async throws {
             try persistence.save(coffee)
         }
 
-        func deleteCoffee(_ coffee: App.Coffee.Entities.Model) async throws {
+        func deleteCoffee(_ coffee: App.Coffee.Entities.Coffee) async throws {
             try persistence.delete(coffee)
         }
 
-        func searchCoffees(query: String) async throws -> [App.Coffee.Entities.Model] {
+        func searchCoffees(query: String) async throws -> [App.Coffee.Entities.Coffee] {
             let allCoffees = try persistence.fetchAll()
 
             guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -41,12 +41,12 @@ extension App.Coffee {
             }
         }
 
-        func getCoffeesByDifficulty(_ difficulty: App.Coffee.Entities.Difficulty) async throws -> [App.Coffee.Entities.Model] {
+        func getCoffeesByDifficulty(_ difficulty: App.Coffee.Entities.Difficulty) async throws -> [App.Coffee.Entities.Coffee] {
             let allCoffees = try persistence.fetchAll()
             return allCoffees.filter { $0.difficulty == difficulty }
         }
 
-        func getCoffeesByType(_ type: App.Coffee.Entities.CoffeeType) async throws -> [App.Coffee.Entities.Model] {
+        func getCoffeesByType(_ type: App.Coffee.Entities.CoffeeType) async throws -> [App.Coffee.Entities.Coffee] {
             let allCoffees = try persistence.fetchAll()
             return allCoffees.filter { $0.coffeeType.contains(type) }
         }

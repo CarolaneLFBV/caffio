@@ -9,32 +9,32 @@ extension App.Coffee.Persistence {
             self.modelContext = modelContext
         }
 
-        func fetchAll() throws -> [App.Coffee.Entities.Model] {
-            let descriptor = FetchDescriptor<App.Coffee.Entities.Model>(
+        func fetchAll() throws -> [App.Coffee.Entities.Coffee] {
+            let descriptor = FetchDescriptor<App.Coffee.Entities.Coffee>(
                 sortBy: [SortDescriptor(\.name)]
             )
             return try modelContext.fetch(descriptor)
         }
 
-        func fetchByID(_ id: UUID) throws -> App.Coffee.Entities.Model? {
-            let descriptor = FetchDescriptor<App.Coffee.Entities.Model>(
+        func fetchByID(_ id: UUID) throws -> App.Coffee.Entities.Coffee? {
+            let descriptor = FetchDescriptor<App.Coffee.Entities.Coffee>(
                 predicate: #Predicate { $0.id == id }
             )
             return try modelContext.fetch(descriptor).first
         }
 
-        func save(_ coffee: App.Coffee.Entities.Model) throws {
+        func save(_ coffee: App.Coffee.Entities.Coffee) throws {
             modelContext.insert(coffee)
             try modelContext.save()
         }
 
-        func delete(_ coffee: App.Coffee.Entities.Model) throws {
+        func delete(_ coffee: App.Coffee.Entities.Coffee) throws {
             modelContext.delete(coffee)
             try modelContext.save()
         }
 
         func importSampleDataIfNeeded() async throws {
-            let coffeeCount = try modelContext.fetchCount(FetchDescriptor<App.Coffee.Entities.Model>())
+            let coffeeCount = try modelContext.fetchCount(FetchDescriptor<App.Coffee.Entities.Coffee>())
             guard coffeeCount == 0 else { return }
 
             try await importSampleCoffees()
@@ -57,8 +57,8 @@ extension App.Coffee.Persistence {
             try modelContext.save()
         }
 
-        private func createCoffee(from data: SampleCoffee) -> App.Coffee.Entities.Model {
-            let coffee = App.Coffee.Entities.Model(
+        private func createCoffee(from data: SampleCoffee) -> App.Coffee.Entities.Coffee {
+            let coffee = App.Coffee.Entities.Coffee(
                 name: data.name,
                 shortDescription: data.shortDescription,
                 difficulty: data.difficulty,
@@ -69,7 +69,7 @@ extension App.Coffee.Persistence {
             )
 
             for ingredientData in data.ingredients {
-                let ingredient = App.Ingredient.Entities.Model(
+                let ingredient = App.Ingredient.Entities.Ingredient(
                     name: ingredientData.name,
                     measure: ingredientData.measure,
                     units: ingredientData.units

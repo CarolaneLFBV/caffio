@@ -54,7 +54,7 @@
       "preparationTimeMinutes": 5,
       "glassType": "glass",
       "coffeeType": ["cold", "long"],
-      "imageName": "cold_brew",
+      "imageName": "coldbrew",
       "ingredients": [
         {
           "name": "Filter ground coffee",
@@ -127,7 +127,7 @@
       "preparationTimeMinutes": 4,
       "glassType": "glass",
       "coffeeType": ["cold", "iced", "long"],
-      "imageName": "iced_latte",
+      "imageName": "icedlatte",
       "ingredients": [
         {
           "name": "Espresso ground coffee",
@@ -156,9 +156,9 @@
       "shortDescription": "Full-bodied coffee brewed with a plunger",
       "difficulty": "easy",
       "preparationTimeMinutes": 8,
-      "glassType": "frenchPress",
+      "glassType": "french_press",
       "coffeeType": ["hot", "filtered", "long"],
-      "imageName": "french_press",
+      "imageName": "frenchpress",
       "ingredients": [
         {
           "name": "Filter ground coffee",

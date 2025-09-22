@@ -55,7 +55,7 @@ caffio/
 
 ### Modèles SwiftData
 
-#### Coffee.Model (@Model)
+#### App.Coffee.Entities.Coffee (@Model)
 - `id: UUID` (@Attribute(.unique)) - Identifiant unique auto-généré
 - `name: String` (@Attribute(.unique)) - Nom unique du café
 - `shortDescription: String` - Description courte
@@ -65,31 +65,25 @@ caffio/
 - `coffeeType: [CoffeeType]` - Array de types (multi-tags)
 - `imageData: Data?` (@Attribute(.externalStorage)) - Image stockée hors DB
 - `imageName: String?` - Nom du fichier image (Assets, optionnel)
-- `ingredients: [Ingredient]` (@Relationship(deleteRule: .cascade))
+- `ingredients: [App.Ingredient.Entities.Ingredient]` (@Relationship(deleteRule: .cascade))
 
 #### Propriétés @Transient (non persistées)
 - `preparationTimeFormatted: String` - Temps formaté avec localisation
-- `displayedImage: Image` - Image SwiftUI (Assets → imageData → défaut)
+- `displayedImage: Image` - Image SwiftUI (Assets → trimmed name → imageData → défaut)
 - `difficultyColor: Color` - Couleur selon difficulté (vert/jaune/rouge)
 
-#### Init avec valeurs par défaut
-- Tous les paramètres ont des valeurs par défaut
-- `glassType` défaut = `.cup`, `difficulty` défaut = `.easy`
-- UUID auto-généré, `imageName` optionnel
-
-#### Ingredient (@Model)
+#### App.Ingredient.Entities.Ingredient (@Model)
 - `id: UUID` (@Attribute(.unique)) - Identifiant unique auto-généré
 - `name: String` - Nom de l'ingrédient
 - `measure: Double` - Quantité
 - `units: String` - Unités libres ("ml", "g", "tsp", etc.)
-- `coffees: [Coffee.Model]` (@Relationship(deleteRule: .nullify))
+- `coffees: [App.Coffee.Entities.Coffee]` (@Relationship(deleteRule: .nullify))
 
-#### Init avec valeurs par défaut
-- UUID auto-généré, tous paramètres avec défauts
+### Relations Many-to-Many
+- **Pas d'inverse** sur aucun des deux côtés pour Many-to-Many SwiftData
+- **Coffee → Ingredients** : deleteRule .cascade (supprime ingrédients avec le café)
+- **Ingredient → Coffees** : deleteRule .nullify (ingrédient reste si café supprimé)
 
-### Relations
-- **Coffee → Ingredients** : One-to-Many (cascade delete)
-- **Ingredient → Coffees** : Many-to-Many (nullify delete)
 
 ## Architecture Data Layer
 
@@ -143,7 +137,12 @@ caffio/Data/Coffee/
   - CoffeeRepository : Logique métier et filtres
   - Protocoles : `App.Coffee.Protocols.Storable` pour testabilité
   - Import JSON : Seed data au premier lancement (`coffees.json`)
-- **Prochaines étapes :** Interface SwiftUI et ViewModels
+- **Interface SwiftUI :**
+  - CoffeeListView : Liste des cafés avec NavigationStack
+  - CoffeeRow : Composant de ligne avec image, info, difficulté
+  - Import automatique des données JSON au premier lancement
+  - Debug des images avec logs console
+- **Status actuel :** App fonctionnelle avec liste des cafés et import JSON
 
 ---
 

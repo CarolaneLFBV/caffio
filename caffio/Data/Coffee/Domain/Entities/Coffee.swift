@@ -4,7 +4,7 @@ import SwiftUI
 
 extension App.Coffee.Entities {
     @Model
-    final class Model {
+    final class Coffee {
         @Attribute(.unique)
         var id: UUID
 
@@ -22,7 +22,7 @@ extension App.Coffee.Entities {
         var imageName: String?
 
         @Relationship(deleteRule: .cascade)
-        var ingredients: [App.Ingredient.Entities.Model] = []
+        var ingredients: [App.Ingredient.Entities.Ingredient]
         
         init(
             id: UUID = UUID(),
@@ -33,7 +33,8 @@ extension App.Coffee.Entities {
             glassType: GlassType = .cup,
             coffeeType: [CoffeeType] = [],
             imageData: Data? = nil,
-            imageName: String? = nil
+            imageName: String? = nil,
+            ingredients: [App.Ingredient.Entities.Ingredient] = []
         ) {
             self.id = id
             self.name = name
@@ -44,11 +45,12 @@ extension App.Coffee.Entities {
             self.coffeeType = coffeeType
             self.imageData = imageData
             self.imageName = imageName
+            self.ingredients = ingredients
         }
     }
 }
 
-extension App.Coffee.Entities.Model {
+extension App.Coffee.Entities.Coffee {
     @Transient
     var preparationTimeFormatted: String {
         String(localized: "\(preparationTimeMinutes) minute")
@@ -56,13 +58,24 @@ extension App.Coffee.Entities.Model {
     
     @Transient
     var displayedImage: Image {
-        if let name = imageName {
-            return Image(name)
+        if let imageName = imageName {
+            print("🖼️ Using imageName: '\(imageName)' for coffee: '\(name)'")
+            return Image(imageName)
         }
+
+        let nameTrimmed = name
+            .lowercased()
+            .replacingOccurrences(of: " ", with: "")
+            .replacingOccurrences(of: "-", with: "")
+            .replacingOccurrences(of: "_", with: "")
+        
+        print("🖼️ Using trimmed name: '\(nameTrimmed)' for coffee: '\(name)'")
+
         if let data = imageData, let uiImage = UIImage(data: data) {
             return Image(uiImage: uiImage)
         }
-        return Image("defaultpic")
+
+        return Image(nameTrimmed.isEmpty ? "defaultpic" : nameTrimmed)
     }
     
     @Transient
