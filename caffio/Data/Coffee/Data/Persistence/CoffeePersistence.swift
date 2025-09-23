@@ -40,6 +40,7 @@ extension App.Coffee.Persistence {
             try await importSampleCoffees()
         }
 
+        // MARK: - Sample Data
         private func importSampleCoffees() async throws {
             guard let url = Bundle.main.url(forResource: "coffees", withExtension: "json"),
                   let data = try? Data(contentsOf: url) else {
@@ -65,7 +66,8 @@ extension App.Coffee.Persistence {
                 preparationTimeMinutes: data.preparationTimeMinutes,
                 glassType: data.glassType,
                 coffeeType: data.coffeeType,
-                imageName: data.imageName
+                imageName: data.imageName,
+                instructions: data.instructions
             )
 
             for ingredientData in data.ingredients {
@@ -94,6 +96,7 @@ private struct SampleCoffee: Codable {
     let glassType: App.Coffee.Entities.GlassType
     let coffeeType: [App.Coffee.Entities.CoffeeType]
     let imageName: String?
+    let instructions: [String]
     let ingredients: [SampleIngredient]
 }
 

@@ -144,6 +144,33 @@ caffio/Data/Coffee/
   - Debug des images avec logs console
 - **Status actuel :** App fonctionnelle avec liste des cafés et import JSON
 
+### Session 2 - 23/09/2025
+- **Ajout des Instructions :** Propriété `instructions: [String]` ajoutée au modèle Coffee
+- **JSON Sample Data :** Mise à jour avec 10 cafés complets incluant instructions détaillées
+- **Persistence Layer :** Correction import JSON pour inclure les instructions
+- **Design System Complet :**
+  - `App.DesignSystem.Padding` : Système de padding basé sur la règle 4pt
+  - `App.DesignSystem.Size` : Tailles standardisées pour tous les composants
+  - `App.DesignSystem.Icons` : Centralisation des SF Symbols
+- **Refactorisation Interface :**
+  - CoffeeDetailView : Vue détaillée avec header, informations, ingrédients, instructions
+  - CoffeeInformation : Composant avec icônes (temps, difficulté, type de verre)
+  - CoffeeDifficultyTag : Système d'étoiles (★☆☆, ★★☆, ★★★)
+  - CoffeeRow : Ligne de liste optimisée avec design system
+  - CoffeeCard : Cartes compactes pour scroll horizontal
+  - CoffeeHeader : Header d'image avec dégradé
+- **HomePage Moderne :**
+  - Section "Popular Coffees" avec scroll horizontal
+  - Section Apple Intelligence avec gradient coloré
+  - Quick Actions en grille 2x2
+  - Navigation intégrée vers toutes les vues
+- **Améliorations UX :**
+  - Dark mode complet (suppression couleurs hardcodées)
+  - Troncature des textes longs avec points de suspension
+  - Animations fluides avec offset et opacity
+  - Design cohérent sur toute l'app
+- **Status actuel :** App complète avec homepage, détails, design system unifié
+
 ---
 
 ## Notes pour Claude

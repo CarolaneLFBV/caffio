@@ -8,6 +8,14 @@
       "glassType": "cup",
       "coffeeType": ["hot", "short"],
       "imageName": "espresso",
+      "instructions": [
+        "Grind 18g of coffee beans to fine espresso grind",
+        "Preheat your espresso machine and portafilter",
+        "Dose and level the coffee in the portafilter",
+        "Tamp with 30lbs of pressure",
+        "Extract shot in 25-30 seconds for 36ml output",
+        "Serve immediately in preheated cup"
+      ],
       "ingredients": [
         {
           "name": "Espresso ground coffee",
@@ -29,6 +37,14 @@
       "glassType": "cup",
       "coffeeType": ["hot"],
       "imageName": "cappuccino",
+      "instructions": [
+        "Prepare a double espresso shot following standard procedure",
+        "Pour cold milk into steaming pitcher",
+        "Steam milk to 65°C, creating microfoam",
+        "Pour steamed milk into espresso, holding foam back with spoon",
+        "Spoon remaining foam on top",
+        "Add sugar if desired and serve immediately"
+      ],
       "ingredients": [
         {
           "name": "Espresso ground coffee",
@@ -55,6 +71,14 @@
       "glassType": "glass",
       "coffeeType": ["cold", "long"],
       "imageName": "coldbrew",
+      "instructions": [
+        "Grind 80g coffee beans to coarse grind",
+        "Combine ground coffee with 500ml cold water",
+        "Stir well to ensure all grounds are saturated",
+        "Steep in refrigerator for 12-24 hours",
+        "Strain through fine mesh filter or cheesecloth",
+        "Serve over ice in a glass"
+      ],
       "ingredients": [
         {
           "name": "Filter ground coffee",
@@ -81,6 +105,14 @@
       "glassType": "mug",
       "coffeeType": ["hot", "long"],
       "imageName": "latte",
+      "instructions": [
+        "Prepare a double espresso shot",
+        "Pour cold milk into steaming pitcher",
+        "Steam milk to 65°C with minimal foam",
+        "Pour steamed milk into espresso, creating latte art if desired",
+        "Add vanilla syrup and stir gently",
+        "Serve in a large mug"
+      ],
       "ingredients": [
         {
           "name": "Espresso ground coffee",
@@ -107,6 +139,13 @@
       "glassType": "mug",
       "coffeeType": ["hot", "long"],
       "imageName": "americano",
+      "instructions": [
+        "Heat water to 85-90°C",
+        "Prepare a double espresso shot",
+        "Pour hot water into mug first",
+        "Add espresso shot on top",
+        "Stir gently and serve"
+      ],
       "ingredients": [
         {
           "name": "Espresso ground coffee",
@@ -128,6 +167,14 @@
       "glassType": "glass",
       "coffeeType": ["cold", "iced", "long"],
       "imageName": "icedlatte",
+      "instructions": [
+        "Fill glass with ice cubes",
+        "Prepare a double espresso shot",
+        "Pour cold milk into glass",
+        "Add caramel syrup and stir",
+        "Pour hot espresso slowly over milk",
+        "Stir gently and serve with straw"
+      ],
       "ingredients": [
         {
           "name": "Espresso ground coffee",
@@ -159,6 +206,14 @@
       "glassType": "french_press",
       "coffeeType": ["hot", "filtered", "long"],
       "imageName": "frenchpress",
+      "instructions": [
+        "Heat water to 95°C",
+        "Grind 30g coffee beans to coarse grind",
+        "Add ground coffee to French press",
+        "Pour hot water and stir gently",
+        "Place lid and steep for 4 minutes",
+        "Press plunger down slowly and serve"
+      ],
       "ingredients": [
         {
           "name": "Filter ground coffee",
@@ -180,6 +235,15 @@
       "glassType": "v60",
       "coffeeType": ["hot", "filtered"],
       "imageName": "v60",
+      "instructions": [
+        "Heat water to 92°C",
+        "Grind 22g coffee beans to medium-fine grind",
+        "Place filter in V60 and rinse with hot water",
+        "Add ground coffee and create a small well",
+        "Start timer and pour 50ml water in circular motion (bloom)",
+        "Wait 30 seconds, then pour remaining water slowly in stages",
+        "Total brew time should be 2:30-3:00 minutes"
+      ],
       "ingredients": [
         {
           "name": "Filter ground coffee",
@@ -201,6 +265,14 @@
       "glassType": "mug",
       "coffeeType": ["hot"],
       "imageName": "mocha",
+      "instructions": [
+        "Mix chocolate powder with brown sugar in mug",
+        "Add a small amount of hot water to create paste",
+        "Prepare a double espresso shot",
+        "Pour espresso into chocolate mixture and stir",
+        "Steam milk to 65°C",
+        "Pour steamed milk and top with whipped cream"
+      ],
       "ingredients": [
         {
           "name": "Espresso ground coffee",
@@ -237,6 +309,16 @@
       "glassType": "chemex",
       "coffeeType": ["hot", "filtered", "long"],
       "imageName": "chemex",
+      "instructions": [
+        "Heat water to 93°C",
+        "Grind 42g coffee beans to medium-coarse grind",
+        "Place Chemex filter with triple fold toward spout",
+        "Rinse filter thoroughly with hot water",
+        "Add ground coffee and create small well in center",
+        "Start with 100ml bloom pour and wait 45 seconds",
+        "Continue pouring in slow, steady spirals every 45 seconds",
+        "Total brew time should be 6-8 minutes"
+      ],
       "ingredients": [
         {
           "name": "Filter ground coffee",

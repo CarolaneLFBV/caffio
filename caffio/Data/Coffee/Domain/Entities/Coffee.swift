@@ -20,6 +20,7 @@ extension App.Coffee.Entities {
         @Attribute(.externalStorage)
         var imageData: Data?
         var imageName: String?
+        var instructions: [String]
 
         @Relationship(deleteRule: .cascade)
         var ingredients: [App.Ingredient.Entities.Ingredient]
@@ -34,6 +35,7 @@ extension App.Coffee.Entities {
             coffeeType: [CoffeeType] = [],
             imageData: Data? = nil,
             imageName: String? = nil,
+            instructions: [String] = [],
             ingredients: [App.Ingredient.Entities.Ingredient] = []
         ) {
             self.id = id
@@ -45,6 +47,7 @@ extension App.Coffee.Entities {
             self.coffeeType = coffeeType
             self.imageData = imageData
             self.imageName = imageName
+            self.instructions = instructions
             self.ingredients = ingredients
         }
     }
@@ -59,7 +62,6 @@ extension App.Coffee.Entities.Coffee {
     @Transient
     var displayedImage: Image {
         if let imageName = imageName {
-            print("🖼️ Using imageName: '\(imageName)' for coffee: '\(name)'")
             return Image(imageName)
         }
 
@@ -69,21 +71,19 @@ extension App.Coffee.Entities.Coffee {
             .replacingOccurrences(of: "-", with: "")
             .replacingOccurrences(of: "_", with: "")
         
-        print("🖼️ Using trimmed name: '\(nameTrimmed)' for coffee: '\(name)'")
-
         if let data = imageData, let uiImage = UIImage(data: data) {
             return Image(uiImage: uiImage)
         }
 
         return Image(nameTrimmed.isEmpty ? "defaultpic" : nameTrimmed)
     }
-    
+
     @Transient
-    var difficultyColor: Color {
+    var difficultyStars: Int {
         switch difficulty {
-        case .easy: return .green
-        case .medium: return .yellow
-        case .hard: return .red
+        case .easy: return 1
+        case .medium: return 2
+        case .hard: return 3
         }
     }
 }

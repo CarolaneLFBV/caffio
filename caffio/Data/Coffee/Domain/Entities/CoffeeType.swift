@@ -1,13 +1,15 @@
 import Foundation
 
 extension App.Coffee.Entities {
-    enum CoffeeType: String, CaseIterable, Codable {
+    enum CoffeeType: String, CaseIterable, Codable, Identifiable {
         case hot = "hot"
         case cold = "cold"
         case short = "short"
         case long = "long"
         case iced = "iced"
         case filtered = "filtered"
+        
+        var id : String { return rawValue }
 
         var displayName: String {
             switch self {

@@ -5,6 +5,7 @@ extension App {
     enum Coffee {}
     enum Ingredient {}
     enum DesignSystem {}
+    enum Home {}
 }
 
 extension App.Coffee {
@@ -18,6 +19,11 @@ extension App.Coffee {
 
 extension App.Ingredient {
     enum Entities {}
+    enum Views {}
+    enum Components {}
+}
+
+extension App.Home {
     enum Views {}
     enum Components {}
 }

@@ -12,7 +12,7 @@ import SwiftData
 struct App: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            App.Core.Navigation()
         }
         .modelContainer(App.Core.Config.shared.container)
     }
