@@ -1,10 +1,3 @@
-//
-//  caffioApp.swift
-//  caffio
-//
-//  Created by Carolane Lefebvre on 22/09/2025.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -12,7 +5,7 @@ import SwiftData
 struct App: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            App.Core.Navigation()
+            App.Home.Views.Home()
         }
         .modelContainer(App.Core.Config.shared.container)
     }

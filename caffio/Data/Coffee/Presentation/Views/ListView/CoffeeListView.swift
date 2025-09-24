@@ -5,10 +5,7 @@ extension App.Coffee.Views {
     struct List: View {
         @Query(sort: \App.Coffee.Entities.Coffee.name)
         private var coffees: [App.Coffee.Entities.Coffee]
-        
         @State private var selectedCoffee: App.Coffee.Entities.Coffee?
-
-        @Environment(\.modelContext) private var modelContext
 
         var body: some View {
             NavigationStack {
@@ -17,18 +14,6 @@ extension App.Coffee.Views {
                     .navigationDestination(item: $selectedCoffee) { coffee in
                         App.Coffee.Views.Detail(coffee: coffee)
                     }
-                    .task {
-                        await importDataIfNeeded()
-                    }
-            }
-        }
-
-        private func importDataIfNeeded() async {
-            do {
-                let persistence = App.Coffee.Persistence.Persistence(modelContext: modelContext)
-                try await persistence.importSampleDataIfNeeded()
-            } catch {
-                print("❌ Failed to import sample data: \(error)")
             }
         }
     }
@@ -43,6 +28,7 @@ extension App.Coffee.Views.List {
                 }
         }
         .listStyle(.plain)
+        .listSectionIndexVisibility(.visible)
     }
 }
 

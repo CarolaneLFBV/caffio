@@ -17,18 +17,54 @@ Développer une application iOS permettant de créer et gérer ses propres café
 caffio/
 ├── Core/
 │   ├── App.swift           # Point d'entrée de l'application
-│   └── Structure.swift     # Définition des namespaces modulaires
+│   ├── Structure.swift     # Définition des namespaces modulaires
+│   └── Config.swift        # Configuration SwiftData centralisée
+├── Shared/
+│   ├── Localizable.xcstrings       # Localisations
+│   ├── sample/coffees.json         # Données d'exemple (10 cafés)
+│   └── caffioIcon.icon/            # Icône de l'application
 └── Data/
-    └── Coffee/
-        └── Views/
-            └── ContentView.swift  # Vue principale (template de base)
+    ├── Navigation/
+    │   └── NavigationView.swift    # Navigation principale avec TabView
+    ├── Coffee/
+    │   ├── Domain/
+    │   │   ├── Entities/           # Modèles SwiftData (Coffee + enums)
+    │   │   ├── AI/                 # Couche Apple Intelligence
+    │   │   │   ├── CoffeeGenerable.swift   # Structure @Generable IA
+    │   │   │   └── CoffeeMaker.swift       # Classe interaction IA
+    │   │   ├── Mocks/CoffeeMocks.swift     # Données de test
+    │   │   └── Protocols/CoffeePersistenceProtocol.swift
+    │   ├── Data/
+    │   │   ├── Persistence/CoffeePersistence.swift  # Import JSON + CRUD
+    │   │   └── Home/Presentation/HomeView/  # HomePage et composants
+    │   └── Presentation/
+    │       ├── Components/         # Composants réutilisables
+    │       │   ├── CoffeeCard.swift         # Cartes compactes
+    │       │   ├── CoffeeRow.swift          # Lignes de liste
+    │       │   ├── CoffeeHeader.swift       # Header avec image
+    │       │   └── CoffeeDifficultyTag.swift # Étoiles de difficulté
+    │       └── Views/
+    │           ├── ListView/CoffeeListView.swift    # Liste complète
+    │           ├── DetailView/CoffeeDetailView.swift # Vue détaillée
+    │           └── CoffeeMaker/CoffeeMakerView.swift # Interface IA
+    ├── Ingredient/
+    │   ├── Domain/
+    │   │   ├── Entities/Ingredient.swift   # Modèle SwiftData
+    │   │   ├── AI/IngredientGenerable.swift # Structure @Generable
+    │   │   └── Mocks/IngredientMocks.swift # Données de test
+    │   └── Presentation/
+    │       └── Views/ListView/IngredientListView.swift
+    └── DesignSystem/
+        ├── Padding.swift   # Système de padding (règle 4pt)
+        ├── Size.swift      # Tailles standardisées
+        └── Icons.swift     # SF Symbols centralisés
 ```
 
 ### Namespaces définis
-- `App.Core` - Fonctionnalités centrales
-- `App.Coffee` - Gestion des cafés (Entities, Views, Components)
-- `App.Ingredient` - Gestion des ingrédients
-- `App.DesignSystem` - Système de design
+- `App.Core` - Fonctionnalités centrales (App, Structure, Config)
+- `App.Coffee` - Gestion des cafés (Entities, Views, Components, AI)
+- `App.Ingredient` - Gestion des ingrédients (Entities, AI)
+- `App.DesignSystem` - Système de design (Padding, Size, Icons)
 
 ## Configuration technique actuelle
 
@@ -45,6 +81,7 @@ caffio/
 - Swift concurrency avec MainActor par défaut
 - Génération de symboles pour les catalogues de chaînes
 - Support universel (iPhone et iPad)
+- FoundationModels framework préparé (iOS 26.0+)
 
 ## Modèle de données SwiftData
 
@@ -65,12 +102,13 @@ caffio/
 - `coffeeType: [CoffeeType]` - Array de types (multi-tags)
 - `imageData: Data?` (@Attribute(.externalStorage)) - Image stockée hors DB
 - `imageName: String?` - Nom du fichier image (Assets, optionnel)
+- `instructions: [String]` - Instructions de préparation étape par étape
 - `ingredients: [App.Ingredient.Entities.Ingredient]` (@Relationship(deleteRule: .cascade))
 
 #### Propriétés @Transient (non persistées)
 - `preparationTimeFormatted: String` - Temps formaté avec localisation
 - `displayedImage: Image` - Image SwiftUI (Assets → trimmed name → imageData → défaut)
-- `difficultyColor: Color` - Couleur selon difficulté (vert/jaune/rouge)
+- `difficultyStars: Int` - Nombre d'étoiles selon difficulté (1-3)
 
 #### App.Ingredient.Entities.Ingredient (@Model)
 - `id: UUID` (@Attribute(.unique)) - Identifiant unique auto-généré
@@ -109,12 +147,12 @@ caffio/Data/Coffee/
 ### Core Features (Modèle défini)
 - ✅ Gestion des profils de café avec SwiftData
 - ✅ Stockage des recettes avec ingrédients
-- 🔄 Intégration Apple Intelligence
-- 🔄 Interface utilisateur moderne en SwiftUI
+- ✅ Intégration Apple Intelligence avec FoundationModels
+- ✅ Interface utilisateur moderne en SwiftUI
 
 ### Technologies iOS à intégrer
 - ✅ **SwiftData** - Modèles définis et relations configurées
-- 🔄 **Core ML / Apple Intelligence** - Fonctionnalités IA
+- ✅ **FoundationModels / Apple Intelligence** - Framework IA implémenté avec @Generable
 - 🔄 **Vision Framework** - Reconnaissance d'images
 - 🔄 **WidgetKit** - Widgets de suivi (optionnel)
 
@@ -171,6 +209,74 @@ caffio/Data/Coffee/
   - Design cohérent sur toute l'app
 - **Status actuel :** App complète avec homepage, détails, design system unifié
 
+### Session 3 - 23/09/2025 (Après-midi)
+- **Objectif principal :** Implémentation Apple Intelligence avec FoundationModels
+- **Documentation technique :** Création complète FOUNDATIONMODELS.md (1900+ lignes)
+- **Architecture AI implémentée avec succès :**
+  - App.Coffee.AI.CoffeeMaker : Classe @Observable pour interactions IA
+  - App.Coffee.Views.CoffeeMakerView : Interface SwiftUI complète avec streaming
+  - App.Coffee.AI.CoffeeGenerable : Structure @Generable pour génération de cafés
+  - App.Ingredient.AI.IngredientGenerable : Structure @Generable pour ingrédients
+- **Fonctionnalités développées :**
+  - Interface utilisateur complète avec états (génération, erreur, succès)
+  - Intégration @Generable avec conversion vers entités SwiftData
+  - Gestion des erreurs et vérifications de disponibilité iOS 26.0+
+  - Streaming des réponses IA en temps réel avec feedback visuel
+  - Sauvegarde automatique des recettes générées dans SwiftData
+- **Refactorisation architecture :**
+  - Suppression couches Repository pour simplification
+  - Migration Ingredient vers structure modulaire complète
+  - Ajout App.Core.Config pour centralisation SwiftData
+- **Status actuel :** Apple Intelligence fonctionnelle et intégrée
+
+### Session 4 - 24/09/2025
+- **Objectif :** Analyse et mise à jour de la documentation suite aux développements récents
+- **Changements identifiés :**
+  - ✅ Apple Intelligence/FoundationModels completement implémentée
+  - ✅ Architecture AI fonctionnelle avec streaming temps réel
+  - ✅ Documentation technique complète (FOUNDATIONMODELS.md)
+  - ✅ Refactorisation et simplification de l'architecture
+  - ✅ Migration Ingredient vers structure modulaire
+  - ✅ Configuration SwiftData centralisée
+- **Status actuel :** Application complète avec IA intégrée et fonctionnelle
+
+## État actuel de l'application
+
+### Features complètes et fonctionnelles ✅
+- ✅ **Modèles SwiftData** : Coffee et Ingredient avec relations many-to-many
+- ✅ **Design System** : Padding, Size, Icons centralisés (règle 4pt)
+- ✅ **HomePage moderne** : Popular Coffees, Apple Intelligence, Quick Actions
+- ✅ **Navigation complète** : TabView, NavigationStack, destinations
+- ✅ **Interface Coffee** : Liste, détails, composants réutilisables
+- ✅ **Import JSON** : 10 cafés d'exemple avec instructions détaillées
+- ✅ **Dark Mode** : Compatible, pas de couleurs hardcodées
+- ✅ **Composants UI** : Cards, Rows, Headers, Difficulty Stars
+- ✅ **Apple Intelligence** : Génération IA de recettes complètes avec streaming
+- ✅ **FoundationModels** : @Generable, @Observable, conversion SwiftData
+- ✅ **CoffeeMaker IA** : Interface complète pour création assistée par IA
+
+### Architecture finale
+```
+App complète et fonctionnelle avec :
+- SwiftData persistence layer
+- Apple Intelligence intégrée (FoundationModels)
+- Design system unifié
+- Homepage attrayante
+- Navigation fluide
+- Composants réutilisables
+- Dark mode support
+- Seed data complet
+- Génération IA de recettes
+- Configuration centralisée
+```
+
+### Prochaines étapes recommandées
+1. **Tests complets** : Coverage des composants critiques + IA
+2. **Performance** : Optimisations Image loading et streaming IA
+3. **Vision Framework** : Reconnaissance d'images de cafés
+4. **WidgetKit** : Widgets de suivi et favoris
+5. **Accessibilité** : Audit complet et améliorations
+
 ---
 
 ## Notes pour Claude
@@ -187,4 +293,4 @@ caffio/Data/Coffee/
 - SwiftUI avec previews activés
 
 ---
-*Dernière mise à jour : 22/09/2025*
+*Dernière mise à jour : 24/09/2025*

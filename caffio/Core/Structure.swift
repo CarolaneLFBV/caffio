@@ -11,16 +11,18 @@ extension App {
 extension App.Coffee {
     enum Entities {}
     enum Persistence {}
-    enum Repositories {}
+    enum Repository {}
     enum Protocols {}
     enum Views {}
     enum Components {}
+    enum AI {}
 }
 
 extension App.Ingredient {
     enum Entities {}
     enum Views {}
     enum Components {}
+    enum AI {}
 }
 
 extension App.Home {

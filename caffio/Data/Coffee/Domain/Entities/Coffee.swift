@@ -17,12 +17,15 @@ extension App.Coffee.Entities {
         var glassType: GlassType
         var coffeeType: [CoffeeType]
         
+        var isFavorite: Bool
+        var note: Int
+        
         @Attribute(.externalStorage)
         var imageData: Data?
         var imageName: String?
         var instructions: [String]
 
-        @Relationship(deleteRule: .cascade)
+        @Relationship(deleteRule: .nullify)
         var ingredients: [App.Ingredient.Entities.Ingredient]
         
         init(
@@ -33,6 +36,8 @@ extension App.Coffee.Entities {
             preparationTimeMinutes: Int = 0,
             glassType: GlassType = .cup,
             coffeeType: [CoffeeType] = [],
+            isFavorite: Bool = false,
+            note: Int = 0,
             imageData: Data? = nil,
             imageName: String? = nil,
             instructions: [String] = [],
@@ -45,6 +50,8 @@ extension App.Coffee.Entities {
             self.preparationTimeMinutes = preparationTimeMinutes
             self.glassType = glassType
             self.coffeeType = coffeeType
+            self.isFavorite = isFavorite
+            self.note = note
             self.imageData = imageData
             self.imageName = imageName
             self.instructions = instructions
@@ -56,13 +63,17 @@ extension App.Coffee.Entities {
 extension App.Coffee.Entities.Coffee {
     @Transient
     var preparationTimeFormatted: String {
-        String(localized: "\(preparationTimeMinutes) minute")
+        String(localized: "\(preparationTimeMinutes) min")
     }
     
     @Transient
     var displayedImage: Image {
-        if let imageName = imageName {
+        if let imageName = imageName, !imageName.isEmpty {
             return Image(imageName)
+        }
+
+        if let data = imageData, let uiImage = UIImage(data: data) {
+            return Image(uiImage: uiImage)
         }
 
         let nameTrimmed = name
@@ -70,12 +81,12 @@ extension App.Coffee.Entities.Coffee {
             .replacingOccurrences(of: " ", with: "")
             .replacingOccurrences(of: "-", with: "")
             .replacingOccurrences(of: "_", with: "")
-        
-        if let data = imageData, let uiImage = UIImage(data: data) {
-            return Image(uiImage: uiImage)
+
+        if !nameTrimmed.isEmpty && UIImage(named: nameTrimmed) != nil {
+            return Image(nameTrimmed)
         }
 
-        return Image(nameTrimmed.isEmpty ? "defaultpic" : nameTrimmed)
+        return Image("defaultpic")
     }
 
     @Transient

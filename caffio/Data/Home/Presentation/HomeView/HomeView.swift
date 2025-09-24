@@ -14,6 +14,8 @@ extension App.Home.Views {
         private var coffees: [App.Coffee.Entities.Coffee]
 
         @State private var selectedCoffee: App.Coffee.Entities.Coffee?
+        @State private var showCoffeeMaker = false
+        @State private var showCoffeeList = false
         @Environment(\.modelContext) private var modelContext
 
         var body: some View {
@@ -21,23 +23,23 @@ extension App.Home.Views {
                 ScrollView {
                     content
                 }
-                .navigationTitle("Caffio")
+                .navigationTitle("app.name")
                 .navigationDestination(item: $selectedCoffee) { coffee in
                     App.Coffee.Views.Detail(coffee: coffee)
                 }
-                .task {
-                    await importDataIfNeeded()
+                .navigationDestination(isPresented: $showCoffeeMaker) {
+                    App.Coffee.Views.CoffeeMaker()
+                }
+                .navigationDestination(isPresented: $showCoffeeList) {
+                    App.Coffee.Views.List()
                 }
             }
         }
 
-        private func importDataIfNeeded() async {
-            do {
-                let persistence = App.Coffee.Persistence.Persistence(modelContext: modelContext)
-                try await persistence.importSampleDataIfNeeded()
-            } catch {
-                print("❌ Failed to import sample data: \(error)")
-            }
+        private func sectionHeader(_ title: String) -> some View {
+            Text(title)
+                .font(.title2)
+                .fontWeight(.semibold)
         }
     }
 }
@@ -59,12 +61,8 @@ extension App.Home.Views.Home {
     var popularCoffeesSection: some View {
         VStack(alignment: .leading, spacing: App.DesignSystem.Padding.component) {
             HStack {
-                Text("Popular Coffees")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-
+                sectionHeader("Popular Coffees")
                 Spacer()
-
                 NavigationLink(destination: App.Coffee.Views.List()) {
                     Text("app.more")
                         .font(.body)
@@ -86,54 +84,56 @@ extension App.Home.Views.Home {
     }
 
     var appleIntelligenceSection: some View {
-        Button(action: {
-            // Action pour Apple Intelligence
-        }) {
-            ZStack {
-                RoundedRectangle(cornerRadius: App.DesignSystem.Padding.component)
-                    .fill(
-                        LinearGradient(
-                            colors: [.purple, .blue, .pink],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
+        VStack(alignment: .leading) {
+            sectionHeader("Need inspiration?")
+            
+            Button(action: {
+                showCoffeeMaker = true
+            }) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: App.DesignSystem.Padding.component)
+                        .fill(
+                            LinearGradient(
+                                colors: [.black, .brown, .gray],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
                         )
-                    )
-                    .frame(height: App.DesignSystem.Size.cardMediumHeight)
+                        .frame(height: App.DesignSystem.Size.cardMediumHeight)
 
-                VStack(alignment: .leading, spacing: App.DesignSystem.Padding.element) {
-                    HStack {
-                        Image(systemName: App.DesignSystem.Icons.star)
-                            .foregroundColor(.white)
-                            .font(.title2)
+                    VStack(alignment: .leading, spacing: App.DesignSystem.Padding.element) {
+                        HStack {
+                            Image(systemName: "apple.intelligence")
+                                .foregroundColor(.white)
+                                .font(.title2)
 
-                        Text("Intelligence")
+                            Text("app.intelligence")
+                                .foregroundColor(.white)
+                                .font(.title3)
+                                .fontWeight(.medium)
+
+                            Spacer()
+                        }
+
+                        Text("app.intelligence.description")
                             .foregroundColor(.white)
-                            .font(.title3)
-                            .fontWeight(.medium)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.leading)
 
                         Spacer()
                     }
-
-                    Text("Ask for a\nCoffee idea")
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.leading)
-
-                    Spacer()
+                    .padding(App.DesignSystem.Padding.large)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(App.DesignSystem.Padding.large)
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .buttonStyle(PlainButtonStyle())
         }
-        .buttonStyle(PlainButtonStyle())
     }
 
     var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: App.DesignSystem.Padding.component) {
-            Text("Quick Actions")
-                .font(.title2)
-                .fontWeight(.semibold)
+            sectionHeader("Quick Actions")
 
             LazyVGrid(columns: [
                 GridItem(.flexible()),
@@ -144,7 +144,7 @@ extension App.Home.Views.Home {
                     title: "Browse All",
                     subtitle: "Explore coffee recipes",
                     action: {
-                        // Navigation vers la liste complète
+                        showCoffeeList = true
                     }
                 )
 

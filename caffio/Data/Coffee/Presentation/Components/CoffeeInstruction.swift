@@ -20,9 +20,9 @@ extension App.Coffee.Components {
                 Text("\(number)")
                     .font(.caption)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(.iconForeground)
                     .frame(width: App.DesignSystem.Size.instructionNumberSize, height: App.DesignSystem.Size.instructionNumberSize)
-                    .background(Color.primary)
+                    .background(.iconBackground)
                     .clipShape(Circle())
 
                 Text(text)

@@ -1,10 +1,3 @@
-//
-//  CoffeeDifficultyTag.swift
-//  caffio
-//
-//  Created by Carolane Lefebvre on 23/09/2025.
-//
-
 import SwiftUI
 
 extension App.Coffee.Components.DifficultyTag {
@@ -43,7 +36,6 @@ extension App.Coffee.Components.DifficultyTag {
             .font(.caption2)
     }
 }
-
 
 #Preview {
     App.Coffee.Components.DifficultyTag(coffee: App.Coffee.Entities.Coffee.complexMock)
