@@ -1,22 +1,20 @@
-//
-//  HomeView.swift
-//  caffio
-//
-//  Created by Carolane Lefebvre on 23/09/2025.
-//
-
 import SwiftUI
 import SwiftData
 
 extension App.Home.Views {
     struct Home: View {
+        @Environment(\.modelContext) private var modelContext
+
         @Query(sort: \App.Coffee.Entities.Coffee.name)
         private var coffees: [App.Coffee.Entities.Coffee]
 
         @State private var selectedCoffee: App.Coffee.Entities.Coffee?
+        
         @State private var showCoffeeMaker = false
         @State private var showCoffeeList = false
-        @Environment(\.modelContext) private var modelContext
+        @State private var showShelfList = false
+        
+        @Namespace private var namespace
 
         var body: some View {
             NavigationStack {
@@ -26,6 +24,7 @@ extension App.Home.Views {
                 .navigationTitle("app.name")
                 .navigationDestination(item: $selectedCoffee) { coffee in
                     App.Coffee.Views.Detail(coffee: coffee)
+                        .navigationTransition(.zoom(sourceID: coffee.id, in: namespace))
                 }
                 .navigationDestination(isPresented: $showCoffeeMaker) {
                     App.Coffee.Views.CoffeeMaker()
@@ -33,11 +32,14 @@ extension App.Home.Views {
                 .navigationDestination(isPresented: $showCoffeeList) {
                     App.Coffee.Views.List()
                 }
+                .navigationDestination(isPresented: $showShelfList) {
+                    App.Coffee.Views.ShelfList()
+                }
             }
         }
 
-        private func sectionHeader(_ title: String) -> some View {
-            Text(title)
+        private func sectionHeader(_ titleKey: LocalizedStringKey) -> some View {
+            Text(titleKey)
                 .font(.title2)
                 .fontWeight(.semibold)
         }
@@ -48,11 +50,7 @@ extension App.Home.Views.Home {
     var content: some View {
         VStack(spacing: App.DesignSystem.Padding.section) {
             popularCoffeesSection
-
             appleIntelligenceSection
-
-            quickActionsSection
-
             Spacer()
         }
         .padding(.horizontal, App.DesignSystem.Padding.screenHorizontal)
@@ -61,7 +59,7 @@ extension App.Home.Views.Home {
     var popularCoffeesSection: some View {
         VStack(alignment: .leading, spacing: App.DesignSystem.Padding.component) {
             HStack {
-                sectionHeader("Popular Coffees")
+                sectionHeader("coffee.your.list")
                 Spacer()
                 NavigationLink(destination: App.Coffee.Views.List()) {
                     Text("app.more")
@@ -73,9 +71,13 @@ extension App.Home.Views.Home {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: App.DesignSystem.Padding.component) {
                     ForEach(Array(coffees.prefix(5)), id: \.id) { coffee in
-                        App.Coffee.Components.Card(coffee: coffee) {
-                            selectedCoffee = coffee
-                        }
+                        App.Coffee.Components.Card(
+                            coffee: coffee,
+                            action: {
+                                selectedCoffee = coffee
+                            },
+                            namespace: namespace
+                        )
                     }
                 }
                 .padding(.horizontal, App.DesignSystem.Padding.tight)
@@ -85,13 +87,13 @@ extension App.Home.Views.Home {
 
     var appleIntelligenceSection: some View {
         VStack(alignment: .leading) {
-            sectionHeader("Need inspiration?")
+            sectionHeader("home.section.inspiration")
             
             Button(action: {
                 showCoffeeMaker = true
             }) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: App.DesignSystem.Padding.component)
+                    RoundedRectangle(cornerRadius: App.DesignSystem.CornerRadius.medium)
                         .fill(
                             LinearGradient(
                                 colors: [.black, .brown, .gray],
@@ -103,7 +105,7 @@ extension App.Home.Views.Home {
 
                     VStack(alignment: .leading, spacing: App.DesignSystem.Padding.element) {
                         HStack {
-                            Image(systemName: "apple.intelligence")
+                            Image(systemName: App.DesignSystem.Icons.intelligence)
                                 .foregroundColor(.white)
                                 .font(.title2)
 
@@ -128,53 +130,6 @@ extension App.Home.Views.Home {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-        }
-    }
-
-    var quickActionsSection: some View {
-        VStack(alignment: .leading, spacing: App.DesignSystem.Padding.component) {
-            sectionHeader("Quick Actions")
-
-            LazyVGrid(columns: [
-                GridItem(.flexible()),
-                GridItem(.flexible())
-            ], spacing: App.DesignSystem.Padding.component) {
-                App.Home.Components.QuickActionCard(
-                    icon: App.DesignSystem.Icons.search,
-                    title: "Browse All",
-                    subtitle: "Explore coffee recipes",
-                    action: {
-                        showCoffeeList = true
-                    }
-                )
-
-                App.Home.Components.QuickActionCard(
-                    icon: App.DesignSystem.Icons.difficulty,
-                    title: "By Difficulty",
-                    subtitle: "Filter by skill level",
-                    action: {
-                        // Navigation vers filtres
-                    }
-                )
-
-                App.Home.Components.QuickActionCard(
-                    icon: App.DesignSystem.Icons.timer,
-                    title: "Quick Brews",
-                    subtitle: "Under 5 minutes",
-                    action: {
-                        // Navigation vers cafés rapides
-                    }
-                )
-
-                App.Home.Components.QuickActionCard(
-                    icon: App.DesignSystem.Icons.favorite,
-                    title: "Favorites",
-                    subtitle: "Your saved recipes",
-                    action: {
-                        // Navigation vers favoris
-                    }
-                )
-            }
         }
     }
 }

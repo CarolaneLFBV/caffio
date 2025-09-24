@@ -82,7 +82,7 @@ extension App.Coffee.Views.CoffeeMaker {
         }
         .padding(App.DesignSystem.Padding.large)
         .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.Padding.component))
+        .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.CornerRadius.medium))
     }
 
     var inputSection: some View {
@@ -109,7 +109,7 @@ extension App.Coffee.Views.CoffeeMaker {
                 .padding(App.DesignSystem.Padding.medium)
                 .background(.black)
                 .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.Padding.element))
+                .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.CornerRadius.small))
             }
             .disabled(userPreferences.isEmpty || coffeeMaker?.isGenerating == true)
         }
@@ -127,7 +127,7 @@ extension App.Coffee.Views.CoffeeMaker {
         .padding(App.DesignSystem.Padding.large)
         .frame(maxWidth: .infinity)
         .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.Padding.component))
+        .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.CornerRadius.medium))
     }
 
 
@@ -156,7 +156,7 @@ extension App.Coffee.Views.CoffeeMaker {
         }
         .padding(App.DesignSystem.Padding.large)
         .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.Padding.component))
+        .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.CornerRadius.medium))
     }
 }
 

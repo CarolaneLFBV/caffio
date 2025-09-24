@@ -9,7 +9,6 @@ import Foundation
 
 extension App.Core {
     final class Utils {
-        // Struct pour matcher la structure JSON {"coffees": [...]}
         private struct CoffeeData: Codable {
             let coffees: [App.Coffee.Entities.Converted]
         }
@@ -23,7 +22,7 @@ extension App.Core {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 let decodedData = try decoder.decode(CoffeeData.self, from: data)
-                return decodedData.coffees  // Extraire l'array des coffees
+                return decodedData.coffees
             } catch {
                 print("❌ Caffio: JSON Parse Error: \(error)")
                 throw URLError(.cannotParseResponse)

@@ -77,7 +77,7 @@ extension App.Coffee.Views.Detail {
                         }
                     }
                 } label: {
-                    Image(systemName: "ellipsis.circle")
+                    Image(systemName: App.DesignSystem.Icons.menu)
                 }
             }
         }

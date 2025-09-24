@@ -115,7 +115,6 @@ extension App.Coffee.Views.Edit {
         Section("coffee.options") {
             App.Coffee.Components.TypePicker(
                 imageTitle: "star.fill",
-                system: true,
                 pickerTitle: "Difficulty",
                 selection: $editingDifficulty,
                 onChange: { newValue in
@@ -124,7 +123,6 @@ extension App.Coffee.Views.Edit {
             )
             App.Coffee.Components.TypePicker(
                 imageTitle: "cup.and.saucer.fill",
-                system: true,
                 pickerTitle: "Type of Glass",
                 selection: $editingGlassType,
                 onChange: { newValue in
@@ -133,7 +131,6 @@ extension App.Coffee.Views.Edit {
             )
             App.Coffee.Components.MultiTypePicker(
                 imageTitle: "cup.and.heat.waves.fill",
-                system: true,
                 sectionTitle: "Types",
                 selections: $editingCoffeeTypes,
                 onChange: { newSelections in

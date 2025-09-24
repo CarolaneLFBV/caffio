@@ -4,15 +4,21 @@ extension App.Coffee.Components {
     struct Card: View {
         let coffee: App.Coffee.Entities.Coffee
         let action: () -> Void
+        let namespace: Namespace.ID
 
         var body: some View {
             Button(action: action) {
                 VStack(alignment: .leading, spacing: App.DesignSystem.Padding.element) {
-                    coffee.displayedImage
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: App.DesignSystem.Size.imageCard, height: App.DesignSystem.Size.thumbnailHuge)
-                        .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.Padding.component))
+                    ZStack(alignment: .topTrailing) {
+                        coffee.displayedImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: App.DesignSystem.Size.imageCard, height: App.DesignSystem.Size.thumbnailHuge)
+                            .clipShape(RoundedRectangle(cornerRadius: App.DesignSystem.CornerRadius.medium))
+
+                        App.Coffee.Components.ToggleButton(coffee: coffee)
+                            .offset(x: -6, y: 6)
+                    }
 
                     VStack(alignment: .leading, spacing: App.DesignSystem.Padding.tight) {
                         Text(coffee.name)
@@ -45,10 +51,16 @@ extension App.Coffee.Components {
                 .frame(width: App.DesignSystem.Size.imageCard)
             }
             .buttonStyle(PlainButtonStyle())
+            .matchedTransitionSource(id: coffee.id, in: namespace)
         }
     }
 }
 
 #Preview {
-    App.Coffee.Components.Card(coffee: App.Coffee.Entities.Coffee.complexMock, action: {})
+    @Previewable @Namespace var namespace
+    return App.Coffee.Components.Card(
+        coffee: App.Coffee.Entities.Coffee.complexMock,
+        action: {},
+        namespace: namespace
+    )
 }

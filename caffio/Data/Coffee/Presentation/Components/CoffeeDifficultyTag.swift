@@ -25,7 +25,7 @@ extension App.Coffee.Components.DifficultyTag {
             ForEach(0..<Constants.totalStars, id: \.self) { index in
                 Image(systemName: index < coffee.difficultyStars ? App.DesignSystem.Icons.starFill : App.DesignSystem.Icons.star)
                     .foregroundStyle(.primary)
-                    .font(.system(size: App.DesignSystem.Size.iconSmall))
+                    .font(.caption)
             }
         }
     }

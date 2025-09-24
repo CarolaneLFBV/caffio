@@ -2,15 +2,17 @@ import SwiftUI
 import SwiftData
 
 extension App.Coffee.Views {
-    struct List: View {
-        @Query(sort: \App.Coffee.Entities.Coffee.name)
+    struct ShelfList: View {
+        @Query(filter: #Predicate<App.Coffee.Entities.Coffee> { coffee in
+            coffee.isFavorite
+        })
         private var coffees: [App.Coffee.Entities.Coffee]
         @State private var selectedCoffee: App.Coffee.Entities.Coffee?
-
+        
         var body: some View {
             NavigationStack {
                 content
-                    .navigationTitle("coffee.your.list")
+                    .navigationTitle("coffee.shelf")
                     .navigationDestination(item: $selectedCoffee) { coffee in
                         App.Coffee.Views.Detail(coffee: coffee)
                     }
@@ -19,7 +21,7 @@ extension App.Coffee.Views {
     }
 }
 
-extension App.Coffee.Views.List {
+extension App.Coffee.Views.ShelfList {
     var content: some View {
         SwiftUI.List(coffees, id: \.id) { coffee in
             App.Coffee.Components.Row(coffee: coffee)
@@ -27,12 +29,9 @@ extension App.Coffee.Views.List {
                     selectedCoffee = coffee
                 }
         }
-        .listStyle(.plain)
-        .listSectionIndexVisibility(.visible)
     }
 }
 
 #Preview {
-    App.Coffee.Views.List()
-        .modelContainer(for: [App.Coffee.Entities.Coffee.self, App.Ingredient.Entities.Ingredient.self], inMemory: true)
+    App.Coffee.Views.ShelfList()
 }

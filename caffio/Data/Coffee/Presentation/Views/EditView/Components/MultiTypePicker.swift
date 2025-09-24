@@ -3,7 +3,6 @@ import SwiftUI
 extension App.Coffee.Components {
     struct MultiTypePicker<T: CaseIterable & Hashable & RawRepresentable>: View where T.RawValue == String {
         let imageTitle: String
-        let system: Bool
         let sectionTitle: String
         @Binding var selections: [T]
         let onChange: ([T]) -> Void
@@ -11,7 +10,7 @@ extension App.Coffee.Components {
         var body: some View {
             VStack(spacing: App.DesignSystem.Padding.medium) {
                 HStack(spacing: App.DesignSystem.Padding.medium) {
-                    App.DesignSystem.pickerImage(title: imageTitle, system: system)
+                    App.DesignSystem.pickerImage(title: imageTitle)
                     Text(sectionTitle)
                         .font(.headline)
                     Spacer()

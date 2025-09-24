@@ -31,22 +31,20 @@ extension App.Coffee.Components.Information {
         VStack(spacing: App.DesignSystem.Padding.tight) {
             Image(systemName: App.DesignSystem.Icons.clock)
                 .foregroundStyle(.primary)
-                .font(.system(size: App.DesignSystem.Size.iconSmall))
             Text(coffee.preparationTimeFormatted)
                 .foregroundStyle(.secondary)
-                .font(.caption2)
         }
+        .font(.caption)
     }
 
     var cupSection: some View {
         VStack(spacing: App.DesignSystem.Padding.tight) {
             Image(systemName: App.DesignSystem.Icons.coffee)
                 .foregroundStyle(.primary)
-                .font(.system(size: App.DesignSystem.Size.iconSmall))
             Text(coffee.glassType.displayName)
                 .foregroundStyle(.secondary)
-                .font(.caption2)
         }
+        .font(.caption)
     }
 }
 
