@@ -240,42 +240,84 @@ caffio/Data/Coffee/
   - ✅ Configuration SwiftData centralisée
 - **Status actuel :** Application complète avec IA intégrée et fonctionnelle
 
+### Session 5 - 24/09/2025 (Suite)
+- **Objectif principal :** Implémentation CoffeeEditView et système de Pickers réutilisables
+- **Nouvelles fonctionnalités développées :**
+  - **CoffeeEditView.swift :** Interface d'édition complète avec Form SwiftUI
+  - **Système TypePicker générique :** Pickers réutilisables pour sélections uniques (Difficulty, GlassType)
+  - **MultiTypePicker :** Composant pour sélections multiples (CoffeeType array)
+  - **Navigation "Browse All" :** Depuis HomePage vers CoffeeListView
+  - **Fonctionnalité favoris :** Toggle dans CoffeeDetailView avec persistance
+- **Architecture des Pickers :**
+  - `TypePicker<T>` générique avec constraints `CaseIterable & Hashable & RawRepresentable`
+  - Design cohérent avec `pickerImage()` et design system unifié
+  - Callbacks `onChange` pour actions personnalisées
+  - `MultiTypePicker` pour gestion des arrays avec logique toggle intégrée
+- **Améliorations modèle Coffee :**
+  - Ajout propriété `note: Int` pour système de notation utilisateur
+  - Propriété `isFavorite: Bool` pour gestion des favoris avec persistance SwiftData
+  - Méthode `preparationTimeFormatted` mise à jour avec localisation "min"
+- **Interface utilisateur avancée :**
+  - Form SwiftUI organisée en sections (Informations, Options, Instructions)
+  - Validation temps réel (nom requis pour activer bouton sauvegarder)
+  - Gestion dynamique des instructions avec ajout/suppression via onDelete
+  - Navigation toolbar avec boutons localisés Annuler/Sauver
+  - Menu contextuel étendu dans CoffeeDetailView (Edit/Delete/Favorite)
+- **Navigation et UX :**
+  - QuickActionCard "Browse All" fonctionnelle avec showCoffeeList @State
+  - navigationDestination vers App.Coffee.Views.List()
+  - Menu ellipsis dans CoffeeDetailView avec sections organisées
+  - Intégration complète des actions favoris avec feedback visuel
+- **Internationalisation étendue :**
+  - 25+ nouvelles clés de localisation pour formulaire d'édition
+  - Support app.edit, app.cancel, app.save, app.favorite, app.unfavorite
+  - Strings localisés pour toutes les sections et champs du formulaire
+  - Support pluriels pour instructions et temps de préparation
+- **Status actuel :** App complète avec édition avancée, favoris, et navigation optimisée
+
 ## État actuel de l'application
 
 ### Features complètes et fonctionnelles ✅
 - ✅ **Modèles SwiftData** : Coffee et Ingredient avec relations many-to-many
 - ✅ **Design System** : Padding, Size, Icons centralisés (règle 4pt)
-- ✅ **HomePage moderne** : Popular Coffees, Apple Intelligence, Quick Actions
-- ✅ **Navigation complète** : TabView, NavigationStack, destinations
-- ✅ **Interface Coffee** : Liste, détails, composants réutilisables
+- ✅ **HomePage moderne** : Popular Coffees, Apple Intelligence, Quick Actions fonctionnelles
+- ✅ **Navigation complète** : TabView, NavigationStack, destinations avec Browse All
+- ✅ **Interface Coffee** : Liste, détails, **édition complète**, composants réutilisables
 - ✅ **Import JSON** : 10 cafés d'exemple avec instructions détaillées
 - ✅ **Dark Mode** : Compatible, pas de couleurs hardcodées
-- ✅ **Composants UI** : Cards, Rows, Headers, Difficulty Stars
+- ✅ **Composants UI** : Cards, Rows, Headers, Difficulty Stars, **TypePickers génériques**
 - ✅ **Apple Intelligence** : Génération IA de recettes complètes avec streaming
 - ✅ **FoundationModels** : @Generable, @Observable, conversion SwiftData
 - ✅ **CoffeeMaker IA** : Interface complète pour création assistée par IA
+- ✅ **CoffeeEditView** : Formulaire d'édition avec TypePicker et MultiTypePicker
+- ✅ **Système de favoris** : Toggle, persistance et feedback visuel
+- ✅ **Navigation QuickActions** : Browse All vers liste complète fonctionnelle
 
 ### Architecture finale
 ```
 App complète et fonctionnelle avec :
-- SwiftData persistence layer
+- SwiftData persistence layer avec favoris et notes
 - Apple Intelligence intégrée (FoundationModels)
-- Design system unifié
-- Homepage attrayante
-- Navigation fluide
-- Composants réutilisables
-- Dark mode support
-- Seed data complet
-- Génération IA de recettes
+- Design system unifié avec TypePickers génériques
+- Homepage attrayante avec QuickActions fonctionnelles
+- Navigation fluide (Browse All, Edit, Liste complète)
+- Composants réutilisables et extensibles
+- Dark mode support complet
+- Seed data complet (10 cafés avec instructions)
+- Génération IA de recettes avec streaming
 - Configuration centralisée
+- Système d'édition avancé avec Form SwiftUI
+- Gestion des favoris avec persistance
 ```
 
 ### Prochaines étapes recommandées
-1. **Tests complets** : Coverage des composants critiques + IA
+1. **Tests complets** : Coverage des composants critiques + TypePickers + IA + Favoris
 2. **Performance** : Optimisations Image loading et streaming IA
 3. **Vision Framework** : Reconnaissance d'images de cafés
-4. **WidgetKit** : Widgets de suivi et favoris
-5. **Accessibilité** : Audit complet et améliorations
+4. **WidgetKit** : Widgets de suivi et favoris avec notes utilisateur
+5. **Accessibilité** : Audit complet des nouveaux formulaires et pickers
+6. **Gestion ingrédients** : Interface d'ajout/édition des ingrédients
+7. **Système notation** : Interface pour les notes utilisateur (1-5 étoiles)
 
 ---
 
@@ -293,4 +335,4 @@ App complète et fonctionnelle avec :
 - SwiftUI avec previews activés
 
 ---
-*Dernière mise à jour : 24/09/2025*
+*Dernière mise à jour : 24/09/2025 - Session 5 (CoffeeEditView et TypePickers)*
