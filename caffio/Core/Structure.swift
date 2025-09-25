@@ -8,6 +8,10 @@ extension App {
     enum Home {}
 }
 
+extension App.DesignSystem {
+    enum Components {}
+}
+
 extension App.Coffee {
     enum Entities {}
     enum Persistence {}

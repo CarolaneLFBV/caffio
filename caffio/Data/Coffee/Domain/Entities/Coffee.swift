@@ -28,6 +28,11 @@ extension App.Coffee.Entities {
         @Relationship(deleteRule: .nullify)
         var ingredients: [App.Ingredient.Entities.Ingredient]
         
+        // Sort Descriptor's value from enum
+        var styleValue: String
+        var glassValue: String
+        var difficultyValue: String
+        
         init(
             id: UUID = UUID(),
             name: String = "",
@@ -41,7 +46,10 @@ extension App.Coffee.Entities {
             imageData: Data? = nil,
             imageName: String? = nil,
             instructions: [String] = [],
-            ingredients: [App.Ingredient.Entities.Ingredient] = []
+            ingredients: [App.Ingredient.Entities.Ingredient] = [],
+            styleValue: String = "hot",
+            glassValue: String = "cup",
+            difficultyValue: String = "easy"
         ) {
             self.id = id
             self.name = name
@@ -56,6 +64,9 @@ extension App.Coffee.Entities {
             self.imageName = imageName
             self.instructions = instructions
             self.ingredients = ingredients
+            self.styleValue = styleValue
+            self.glassValue = glassValue
+            self.difficultyValue = difficultyValue
         }
     }
 }

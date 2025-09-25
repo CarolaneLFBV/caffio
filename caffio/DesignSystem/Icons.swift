@@ -1,39 +1,41 @@
-//
-//  Icons.swift
-//  caffio
-//
-//  Created by Carolane Lefebvre on 23/09/2025.
-//
-
 import Foundation
 
 extension App.DesignSystem {
     enum Icons {
         // MARK: - Navigation & UI
-        /// search = "magnifyingglass"
+        /// search: String = "magnifyingglass"
         static let search: String = "magnifyingglass"
-        /// search = "menu"
+        /// search: String = "menu"
         static let menu: String = "ellipsis.circle"
+        /// new: String = "plus.circle.fill"
+        static let new: String = "plus.circle.fill"
         
         // MARK: - Interaction
-        /// star = "star"
+        /// star: String = "star"
         static let star: String = "star"
-        /// starFill = "star.fill"
+        /// starFill: String = "star.fill"
         static let starFill: String = "star.fill"
-        /// favorite = "heart"
+        /// favorite: String = "heart"
         static let favorite: String = "heart"
+        /// check: String = "checkmark.circle.fill"
+        static let check: String = "checkmark.circle.fill"
+        /// check: String = "checkmark.circle.fill"
+        static let uncheck: String = "circle"
         
         // MARK: - Coffee
-        /// coffee = "cup.and.saucer"
+        /// coffee: String = "cup.and.saucer"
         static let coffee: String = "cup.and.saucer"
-        /// timer = "timer"
+        /// timer: String = "timer"
         static let timer: String = "timer"
-        /// difficulty = "chart.bar"
+        /// difficulty: String = "chart.bar"
         static let difficulty: String = "chart.bar"
-        /// clock = "clock"
+        /// clock: String = "clock"
         static let clock: String = "clock"
         
         // MARK: - Apple Intelligence
+        /// intelligence: String = "apple.intelligence"
         static let intelligence: String = "apple.intelligence"
+        /// sparkles: String = "sparkles"
+        static let sparkles: String = "sparkles"
     }
 }

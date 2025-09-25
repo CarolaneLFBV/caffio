@@ -275,49 +275,89 @@ caffio/Data/Coffee/
   - Support pluriels pour instructions et temps de préparation
 - **Status actuel :** App complète avec édition avancée, favoris, et navigation optimisée
 
+### Session 6 - 24/09/2025 (Continuation)
+- **Objectif principal :** Améliorations UX et implémentation des transitions zoom
+- **Nettoyage Design System complet :**
+  - Padding : Réduction de 16 à 7 valeurs essentielles (suppression des valeurs non utilisées)
+  - Size : Réduction de 35 à 11 valeurs (conservation des tailles critiques)
+  - Icons : Réduction de 50+ à 8 icônes essentielles (search, star, favorite, coffee, timer, difficulty, clock, intelligence)
+  - Analyse systématique avec grep pour identifier les valeurs réellement utilisées
+- **Système de favoris avancé :**
+  - CoffeeToggleButton : Composant réutilisable avec glassmorphism (.regularMaterial)
+  - Badge de favoris sur CoffeeRow et CoffeeCard (overlay en coin d'image)
+  - Persistance SwiftData avec gestion d'erreurs
+  - Design cohérent avec CornerRadius.xsmall
+- **Nouveau Design System CornerRadius :**
+  - Ajout fichier CornerRadius.swift suivant la règle 4pt
+  - xsmall: 4 (toggle buttons), small: 8 (images), medium: 12 (cards et containers)
+  - Remplacement des valeurs hardcodées dans toute l'app
+- **ShelfList fonctionnelle :**
+  - Création vue complète pour les cafés favoris
+  - @Query avec #Predicate pour filtrer isFavorite == true
+  - État vide avec instructions claires
+  - Navigation vers DetailView intégrée
+  - Fix du freeze de l'app lors du clic sur "Shelf"
+- **Transitions zoom avancées :**
+  - Implémentation @Namespace et matchedTransitionSource sur CoffeeCard
+  - .navigationTransition(.zoom) de HomeView vers DetailView
+  - Animation fluide card-to-detail avec ID unique (coffee.id)
+  - Support namespace partagé entre composants
+- **Localisation améliorée :**
+  - Section headers avec LocalizedStringKey dans HomeView
+  - Ajout clés home.section.* dans Localizable.xcstrings
+  - Support internationalisation pour futures langues
+- **Optimisations techniques :**
+  - Extraction code dupliqué vers composants réutilisables
+  - Amélioration gestion des erreurs avec logs console
+  - Cohérence des corner radius et padding dans toute l'app
+  - Simplification des previews avec @Previewable @Namespace
+- **Status actuel :** App polie avec transitions fluides, favoris fonctionnels, design system optimisé
+
 ## État actuel de l'application
 
 ### Features complètes et fonctionnelles ✅
 - ✅ **Modèles SwiftData** : Coffee et Ingredient avec relations many-to-many
-- ✅ **Design System** : Padding, Size, Icons centralisés (règle 4pt)
-- ✅ **HomePage moderne** : Popular Coffees, Apple Intelligence, Quick Actions fonctionnelles
-- ✅ **Navigation complète** : TabView, NavigationStack, destinations avec Browse All
-- ✅ **Interface Coffee** : Liste, détails, **édition complète**, composants réutilisables
+- ✅ **Design System optimisé** : Padding (7 valeurs), Size (11 valeurs), Icons (8 valeurs), CornerRadius (3 valeurs)
+- ✅ **HomePage moderne** : Popular Coffees, Apple Intelligence avec transitions zoom
+- ✅ **Navigation complète** : TabView, NavigationStack, destinations avec Shelf fonctionnelle
+- ✅ **Interface Coffee** : Liste, détails, **édition complète**, ShelfList avec favoris
 - ✅ **Import JSON** : 10 cafés d'exemple avec instructions détaillées
-- ✅ **Dark Mode** : Compatible, pas de couleurs hardcodées
-- ✅ **Composants UI** : Cards, Rows, Headers, Difficulty Stars, **TypePickers génériques**
+- ✅ **Dark Mode** : Compatible avec glassmorphism effects (.regularMaterial)
+- ✅ **Composants UI avancés** : Cards avec badges favoris, Rows optimisées, TypePickers génériques
 - ✅ **Apple Intelligence** : Génération IA de recettes complètes avec streaming
 - ✅ **FoundationModels** : @Generable, @Observable, conversion SwiftData
 - ✅ **CoffeeMaker IA** : Interface complète pour création assistée par IA
 - ✅ **CoffeeEditView** : Formulaire d'édition avec TypePicker et MultiTypePicker
-- ✅ **Système de favoris** : Toggle, persistance et feedback visuel
-- ✅ **Navigation QuickActions** : Browse All vers liste complète fonctionnelle
+- ✅ **Système de favoris complet** : Toggle buttons, badges visuels, ShelfList filtrée, persistance
+- ✅ **Transitions fluides** : Zoom animation avec @Namespace de cards vers DetailView
+- ✅ **Localisation** : Section headers internationalisables, clés home.section.*
 
-### Architecture finale
+### Architecture finale optimisée
 ```
-App complète et fonctionnelle avec :
+App complète et polie avec :
 - SwiftData persistence layer avec favoris et notes
 - Apple Intelligence intégrée (FoundationModels)
-- Design system unifié avec TypePickers génériques
-- Homepage attrayante avec QuickActions fonctionnelles
-- Navigation fluide (Browse All, Edit, Liste complète)
-- Composants réutilisables et extensibles
+- Design system optimisé (Padding: 7, Size: 11, Icons: 8, CornerRadius: 3 valeurs)
+- Transitions zoom fluides avec @Namespace
+- Système de favoris complet avec badges et ShelfList
+- Composants réutilisables (ToggleButton, TypePicker, etc.)
+- Glassmorphism effects avec .regularMaterial
+- Homepage attrayante avec navigation complète
 - Dark mode support complet
+- Localisation préparée pour internationalisation
 - Seed data complet (10 cafés avec instructions)
 - Génération IA de recettes avec streaming
-- Configuration centralisée
-- Système d'édition avancé avec Form SwiftUI
-- Gestion des favoris avec persistance
+- UX polie avec états vides et gestion d'erreurs
 ```
 
 ### Prochaines étapes recommandées
-1. **Tests complets** : Coverage des composants critiques + TypePickers + IA + Favoris
-2. **Performance** : Optimisations Image loading et streaming IA
-3. **Vision Framework** : Reconnaissance d'images de cafés
-4. **WidgetKit** : Widgets de suivi et favoris avec notes utilisateur
-5. **Accessibilité** : Audit complet des nouveaux formulaires et pickers
-6. **Gestion ingrédients** : Interface d'ajout/édition des ingrédients
-7. **Système notation** : Interface pour les notes utilisateur (1-5 étoiles)
+1. **Tests E2E complets** : Coverage des transitions, favoris, IA, et navigation
+2. **Performance** : Optimisations Image loading, caching, et animations
+3. **Accessibilité** : Audit WCAG avec support VoiceOver pour badges et transitions
+4. **Vision Framework** : Reconnaissance automatique d'images de cafés
+5. **WidgetKit** : Widgets favoris avec accès rapide aux recettes
+6. **CloudKit Sync** : Synchronisation des favoris entre appareils
+7. **Système notation avancé** : Notes utilisateur avec moyenne et statistiques
 
 ---
 
@@ -335,4 +375,4 @@ App complète et fonctionnelle avec :
 - SwiftUI avec previews activés
 
 ---
-*Dernière mise à jour : 24/09/2025 - Session 5 (CoffeeEditView et TypePickers)*
+*Dernière mise à jour : 24/09/2025 - Session 6 (Transitions zoom et design system optimisé)*

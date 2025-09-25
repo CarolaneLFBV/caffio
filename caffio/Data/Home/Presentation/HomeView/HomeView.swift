@@ -13,8 +13,10 @@ extension App.Home.Views {
         @State private var showCoffeeMaker = false
         @State private var showCoffeeList = false
         @State private var showShelfList = false
+        @State private var showCreateCoffee = false
         
         @Namespace private var namespace
+        @Namespace private var intelligentCoffeeMaker
 
         var body: some View {
             NavigationStack {
@@ -28,12 +30,16 @@ extension App.Home.Views {
                 }
                 .navigationDestination(isPresented: $showCoffeeMaker) {
                     App.Coffee.Views.CoffeeMaker()
+                        .navigationTransition(.zoom(sourceID: "intelligence", in: intelligentCoffeeMaker))
                 }
                 .navigationDestination(isPresented: $showCoffeeList) {
                     App.Coffee.Views.List()
                 }
                 .navigationDestination(isPresented: $showShelfList) {
                     App.Coffee.Views.ShelfList()
+                }
+                .sheet(isPresented: $showCreateCoffee) {
+                    App.Coffee.Views.Editor(mode: .create)
                 }
             }
         }
@@ -51,6 +57,7 @@ extension App.Home.Views.Home {
         VStack(spacing: App.DesignSystem.Padding.section) {
             popularCoffeesSection
             appleIntelligenceSection
+            quickActionsSection
             Spacer()
         }
         .padding(.horizontal, App.DesignSystem.Padding.screenHorizontal)
@@ -88,48 +95,42 @@ extension App.Home.Views.Home {
     var appleIntelligenceSection: some View {
         VStack(alignment: .leading) {
             sectionHeader("home.section.inspiration")
-            
             Button(action: {
                 showCoffeeMaker = true
             }) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: App.DesignSystem.CornerRadius.medium)
-                        .fill(
-                            LinearGradient(
-                                colors: [.black, .brown, .gray],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(height: App.DesignSystem.Size.cardMediumHeight)
-
-                    VStack(alignment: .leading, spacing: App.DesignSystem.Padding.element) {
-                        HStack {
-                            Image(systemName: App.DesignSystem.Icons.intelligence)
-                                .foregroundColor(.white)
-                                .font(.title2)
-
-                            Text("app.intelligence")
-                                .foregroundColor(.white)
-                                .font(.title3)
-                                .fontWeight(.medium)
-
-                            Spacer()
-                        }
-
-                        Text("app.intelligence.description")
-                            .foregroundColor(.white)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
-
-                        Spacer()
-                    }
-                    .padding(App.DesignSystem.Padding.large)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
+                App.Home.Components.IntelligenceBadge()
             }
             .buttonStyle(PlainButtonStyle())
+        }
+    }
+
+    var quickActionsSection: some View {
+        VStack(alignment: .leading, spacing: App.DesignSystem.Padding.component) {
+            sectionHeader("home.section.quickActions")
+
+            HStack(spacing: App.DesignSystem.Padding.component) {
+                Button(action: {
+                    showCreateCoffee = true
+                }) {
+                    App.Home.Components.QuickActionButton(
+                        title: "coffee.new",
+                        subtitle: "coffee.new.subtitle",
+                        imageName: App.DesignSystem.Icons.new
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+
+                Button(action: {
+                    showShelfList = true
+                }) {
+                    App.Home.Components.QuickActionButton(
+                        title: "app.favorite.browse.title",
+                        subtitle: "app.favorite.browse.subtitle",
+                        imageName: App.DesignSystem.Icons.favorite
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
         }
     }
 }
